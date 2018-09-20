@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col-xs-12 col-md-6 col-lg-4" *ngFor="let tedEvent of element">
+      <div class="panel panel-default">
+          <div class="panel-body"><h2>{{ tedEvent.name }}</h2></div>
+          <div class="panel-footer">
+              <h4>{{ tedEvent.mainSpeaker }} <small> / {{ tedEvent.speakerOccupation }}</small></h4>
+          </div>
+        </div>
+  </div>
+</div>
