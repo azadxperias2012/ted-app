@@ -1,7 +1,17 @@
 <div class="row">
-  <div class="col-xs-12 col-md-6 col-lg-4" *ngFor="let tedEvent of element">
+  <div class="col-xs-12 col-md-12 col-lg-12" *ngFor="let tedEvent of element">
       <div class="panel panel-default">
-          <div class="panel-body"><h2>{{ tedEvent.name }}</h2></div>
+          <div class="panel-body">
+            <h2><a href="{{ tedEvent.url }}" target="_blank">{{ tedEvent.name }}</a></h2>
+            <div class="row">
+              <div class="col-xs-12 col-md-9 col-lg-9">
+                <p>{{ tedEvent.description }}</p>
+              </div>
+              <div class="col-xs-12 col-md-3 col-lg-3">
+                <span><strong>{{ tedEvent.views | number}}</strong></span> views
+              </div>
+            </div>
+          </div>
           <div class="panel-footer">
               <h4>{{ tedEvent.mainSpeaker }} <small> / {{ tedEvent.speakerOccupation }}</small></h4>
           </div>

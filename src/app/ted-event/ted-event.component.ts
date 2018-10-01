@@ -12,7 +12,9 @@ export class TedEventComponent implements OnInit {
     description: string,
     name: string,
     mainSpeaker: string,
-    speakerOccupation: string
+    speakerOccupation: string,
+    url: string,
+    views: number
   };
 
   constructor() { }
