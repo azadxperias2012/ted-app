@@ -2,14 +2,62 @@
   <div class="col-xs-12 col-md-12 col-lg-12" *ngFor="let tedEvent of element">
       <div class="panel panel-default">
           <div class="panel-body">
-            <h2><a href="{{ tedEvent.url }}" target="_blank">{{ tedEvent.name }}</a></h2>
             <div class="row">
-              <div class="col-xs-12 col-md-9 col-lg-9">
+              <div class="col-xs-10"><h2><a href="{{ tedEvent.url }}" target="_blank">{{ tedEvent.name }}</a></h2></div>
+              <div class="col-xs-2">
+                <button type="button" class="btn btn-default pull-right" (click)="onMoreInfo()"
+                        aria-label="More Information">
+                  <span *ngIf="!toggle" class="glyphicon glyphicon-collapse-down" aria-hidden="true"></span>
+                  <span *ngIf="toggle" class="glyphicon glyphicon-collapse-up" aria-hidden="true"></span>
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
                 <p>{{ tedEvent.description }}</p>
               </div>
-              <div class="col-xs-12 col-md-3 col-lg-3">
-                <span><strong>{{ tedEvent.views | number}}</strong></span> views
+              <div class="row">
+                <div class="col-xs-12 col-sm-3">
+                  <span><strong>{{ tedEvent.views | number}}</strong></span> views
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                  <span><strong>{{ tedEvent.event }}</strong></span> | {{ tedEvent.publishedDate * 1000 | date }}
+                </div>
               </div>
+            </div>
+
+            <div *ngIf="toggle">
+              <div class="row">
+
+                <h1 class="text-center">Related Talks</h1>
+
+              </div>
+              <!--
+title: "The power of the informal economy",
+duration: 749,
+slug: "robert_neuwirth_the_power_of_the_informal_economy",
+viewed_count: 754759
+              -->
+              <div class="row">
+                <div class="col-xs-12 col-md-6 related-talks-card" *ngFor="let relatedTedTalk of tedEvent.relatedTedTalks">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <div class="related-talks-content">
+                        <div class="title"><a href="https://www.ted.com/talks/{{ relatedTedTalk.slug }}" target="_blank">{{relatedTedTalk.title}}</a></div>
+                        <div>{{ relatedTedTalk.speaker }}</div>
+                        <div class="views">{{ relatedTedTalk.viewed_count | number }} views</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-6">
+                      <img src="{{relatedTedTalk.hero}}"
+                           class="img-responsive related-talks-img" alt="{{relatedTedTalk.title}}">
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
             </div>
           </div>
           <div class="panel-footer">

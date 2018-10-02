@@ -18,3 +18,31 @@
     padding-left: 70px;
     padding-right: 70px;
 }
+
+.ted-paginator {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.related-talks-card {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.related-talks-content {
+  padding-left: 2px;
+}
+
+.related-talks-content > .title {
+  color: #111111;
+  font-size: 14px;
+}
+
+.related-talks-content > .views {
+  color: #666666;
+}
+
+.related-talks-img {
+  width: 230px;
+  height: 130px;
+}

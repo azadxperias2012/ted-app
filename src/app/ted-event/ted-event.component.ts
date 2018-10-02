@@ -7,6 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TedEventComponent implements OnInit {
 
+  toggle = false;
+
   @Input() element: {
     id: number,
     description: string,
@@ -14,12 +16,19 @@ export class TedEventComponent implements OnInit {
     mainSpeaker: string,
     speakerOccupation: string,
     url: string,
-    views: number
+    views: number,
+    event: string
+    publishedDate: number
   };
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onMoreInfo() {
+    this.toggle = !this.toggle;
+    console.log('More Information');
   }
 
 }
