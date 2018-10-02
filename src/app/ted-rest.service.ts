@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 export class TedRestService {
 
   readonly REST_END_POINT: string = 'http://localhost:8081/tedevent';
-  readonly PAGE_RESOURCE: string = 'page'
+  readonly PAGE_RESOURCE: string = 'page';
 
   constructor(private http: Http) { }
 
@@ -16,12 +16,28 @@ export class TedRestService {
     const headers = new Headers({
       'Content-Type': 'application/json'
     });
-    let page: string = this.REST_END_POINT + '/' + this.PAGE_RESOURCE + '/' + pageNumber;
+    const page: string = this.REST_END_POINT + '/' + this.PAGE_RESOURCE + '/' + pageNumber;
     return this.http.get(page).pipe(map(
         (response: Response) => {
           const data = response.json();
           return data;
-        })    
-      );
+        })
+    );
+  }
+
+  getTedEventsByEventFilter(pageNumber: number, event: string) {
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    // http://localhost:8081/tedevent/page?number=0&event=TED2004
+    const page: string = this.REST_END_POINT + '/' + this.PAGE_RESOURCE
+      + '?number=' + pageNumber + '&event=' + event;
+    return this.http.get(page).pipe(map(
+      (response: Response) => {
+        const data = response.json();
+        return data;
+      })
+    );
   }
 }
