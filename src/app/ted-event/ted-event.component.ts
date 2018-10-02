@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TedEventComponent implements OnInit {
 
-  toggle = false;
+  toggleIdMap: Map<string, boolean> = new Map<string, boolean>();
 
   @Input() element: {
     id: number,
@@ -26,9 +26,9 @@ export class TedEventComponent implements OnInit {
   ngOnInit() {
   }
 
-  onMoreInfo() {
-    this.toggle = !this.toggle;
-    console.log('More Information');
+  onMoreInfo(id) {
+    const toggle: boolean = this.toggleIdMap.get(id);
+    this.toggleIdMap.set(id, !toggle);
   }
 
 }

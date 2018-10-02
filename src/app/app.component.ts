@@ -7,6 +7,7 @@ import { TedRestService } from './ted-rest.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  tedEvents = [];
 
   title = 'TED Application';
   pageNumber = 1;
@@ -15,7 +16,9 @@ export class AppComponent implements OnInit {
   currentPageNumber = 1;
   eventName = '';
 
-  tedEvents = [];
+  options = ['publishedDate', 'views'];
+  optionSelected: any = 'views';
+  sortDesc = false;
 
   constructor(private tedRestService: TedRestService) {}
 
@@ -29,11 +32,12 @@ export class AppComponent implements OnInit {
     }
 
     if (this.eventName.length !== 0) {
-      this.onFilterPageByEvent();
+      this.onFilterPageByEvent(null);
       return;
     }
 
-    this.tedRestService.getTedEvents(this.pageNumber - 1)
+    const sortOrder = this.sortDesc ? 1 : 0;
+    this.tedRestService.getTedEvents(this.pageNumber - 1, this.optionSelected, sortOrder)
       .subscribe(
         (data: any) => {
           this.syncResponse(data);
@@ -41,7 +45,11 @@ export class AppComponent implements OnInit {
       );
   }
 
-  onFilterPageByEvent() {
+  onFilterPageByEvent(event) {
+    if (event !== null) {
+      this.pageNumber = 1;
+    }
+
     if (this.eventName.length === 0) {
       this.pageNumber = 1;
       this.onRetrievePage();
@@ -52,7 +60,8 @@ export class AppComponent implements OnInit {
       this.pageNumber = this.currentPageNumber;
     }
 
-    this.tedRestService.getTedEventsByEventFilter(this.pageNumber - 1, this.eventName)
+    const sortOrder = this.sortDesc ? 1 : 0;
+    this.tedRestService.getTedEventsByEventFilter(this.pageNumber - 1, this.eventName, this.optionSelected, sortOrder)
       .subscribe(
         (data: any) => {
           this.syncResponse(data);
@@ -74,6 +83,15 @@ export class AppComponent implements OnInit {
 
   onPrev() {
     this.pageNumber = this.currentPageNumber - 1;
+    this.onRetrievePage();
+  }
+
+  onOptionSelected(event) {
+    this.onRetrievePage();
+  }
+
+  onSortOrderChange() {
+    this.sortDesc = !this.sortDesc;
     this.onRetrievePage();
   }
 }

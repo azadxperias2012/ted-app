@@ -25,6 +25,18 @@
         </span>
       </div>
     </div>
+
+    <div class="col-xs-12 col-md-4 ted-label-input-control form-inline">
+      <label style="margin-right: 5px" for="sortBySelectControl">Sort By</label>
+      <select class='form-control' id="sortBySelectControl" required [(ngModel)]='optionSelected' (ngModelChange)='onOptionSelected($event)'>
+        <option class='option' *ngFor='let option of options' [value]="option">{{option}}</option>
+      </select>
+      <button type="button" class="btn btn-success pull-right" (click)="onSortOrderChange()"
+              aria-label="Sort">
+        <span *ngIf="!sortDesc" class="glyphicon glyphicon-sort-by-order" aria-hidden="true"></span>
+        <span *ngIf="sortDesc" class="glyphicon glyphicon glyphicon-sort-by-order-alt" aria-hidden="true"></span>
+      </button>
+    </div>
   </div>
 
   <div class="row ted-paginator">

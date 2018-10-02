@@ -5,10 +5,10 @@
             <div class="row">
               <div class="col-xs-10"><h2><a href="{{ tedEvent.url }}" target="_blank">{{ tedEvent.name }}</a></h2></div>
               <div class="col-xs-2">
-                <button type="button" class="btn btn-default pull-right" (click)="onMoreInfo()"
+                <button type="button" class="btn btn-default pull-right" (click)="onMoreInfo(tedEvent.id)"
                         aria-label="More Information">
-                  <span *ngIf="!toggle" class="glyphicon glyphicon-collapse-down" aria-hidden="true"></span>
-                  <span *ngIf="toggle" class="glyphicon glyphicon-collapse-up" aria-hidden="true"></span>
+                  <span *ngIf="!toggleIdMap.get(tedEvent.id)" class="glyphicon glyphicon-collapse-down" aria-hidden="true"></span>
+                  <span *ngIf="toggleIdMap.get(tedEvent.id)" class="glyphicon glyphicon-collapse-up" aria-hidden="true"></span>
                 </button>
               </div>
             </div>
@@ -27,18 +27,13 @@
               </div>
             </div>
 
-            <div *ngIf="toggle">
+            <div *ngIf="toggleIdMap.get(tedEvent.id)">
               <div class="row">
 
                 <h1 class="text-center">Related Talks</h1>
 
               </div>
-              <!--
-title: "The power of the informal economy",
-duration: 749,
-slug: "robert_neuwirth_the_power_of_the_informal_economy",
-viewed_count: 754759
-              -->
+
               <div class="row">
                 <div class="col-xs-12 col-md-6 related-talks-card" *ngFor="let relatedTedTalk of tedEvent.relatedTedTalks">
                   <div class="row">
